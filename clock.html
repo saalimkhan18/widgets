@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <link rel="stylesheet" href="custom.css">
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="d-flex flex-column align-items-center">
+
+        <div class="clock mt-5 mb-5">
+            <div class="hand hours"></div>
+            <div class="hand minutes"></div>
+            <div class="hand seconds"></div>
+            <div class="point"></div>
+            <div class="marker">
+                <div class="marker__1"></div>
+                <div class="marker__2"></div>
+                <div class="marker__3"></div>
+                <div class="marker__4"></div>
+            </div>
+        </div>
+
+        <div class="digital-clock"></div>
+    </div>
+
+    <script src="bootstrap/bootstrap.min.js"></script>
+    <script>
+        const hours = document.querySelector('.hours');
+        const minutes = document.querySelector('.minutes');
+        const seconds = document.querySelector('.seconds');
+        const digitalClock = document.querySelector('.digital-clock');
+        clock = () => {
+            let today = new Date();
+            let h = (today.getHours() % 12) + today.getMinutes() / 59;
+            let m = today.getMinutes();
+            let s = today.getSeconds();
+
+            let digHour = today.getHours() <= 9 ? '0' + today.getHours() : today.getHours();
+            let digMin = m <= 9 ? '0' + m : m;
+            let digSec = s <= 9 ? '0' + s : s;
+
+            digitalClock.innerHTML = `<h1><span class="dig-hour">${digHour}</span>:<span class="dig-min">${digMin}</span>:<span class="dig-sec">${digSec}</span></h1>`;
+
+            h *= 30; // 0-11 * 30
+            m *= 6;
+            s *= 6; // 0-59 * 6
+            rotation(hours, h);
+            rotation(minutes, m);
+            rotation(seconds, s);
+            setTimeout(clock, 1000);
+
+        };
+
+        rotation = (target, val) => {
+            target.style.transform = `rotate(${val}deg)`;
+            if (val != 0) { // preventing reverse transition
+                target.style.transition = `transform .2s cubic-bezier(.4,2.08,.55,.44)`;
+            } else {
+                target.style.transition = ``;
+            }
+        }
+
+        window.onload = clock();
+    </script>
+</body>
+
+<style>
+
+
+.digital-clock{
+    box-shadow: 5px 5px 8px #c8d0e7, -4px -4px 6px #fff;
+    padding: 10px;
+    border-radius: 10px;
+    line-height: 1;
+}
+
+.dig-hour{color: red}
+.dig-min{color: darkred}
+.dig-sec{color:black}
+
+.clock {
+    border: 2px solid #fff;
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    box-shadow: 5px 5px 8px #c8d0e7, -4px -4px 6px #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clock .hand {
+    position: absolute;
+    transform-origin: bottom;
+    bottom: 150px;
+    border-radius: 3px;
+    z-index: 200;
+}
+
+.hand.hours {
+    width: 8px;
+    height: 85px;
+    background: transparent;
+    border: 1px solid red;
+}
+
+.hand.minutes {
+    width: 6px;
+    height: 95px;
+    /* background: darkred; */
+    border: 1px solid darkred;
+}
+
+.hand.seconds {
+    width: 1px;
+    height: 100px;
+    background: black;
+}
+
+.clock .point {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: black;
+    z-index: 300;
+}
+
+.marker {
+    width: 95%;
+    height: 95%;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: inset 5px 5px 8px #c8d0e7, inset -4px -4px 6px #fff;
+}
+
+.marker::after {
+    content: '';
+    width: 60%;
+    height: 60%;
+    position: absolute;
+    box-shadow: inset 1px 1px 1px #c8d0e7,
+        inset -1px -1px 1px #fff;
+    border-radius: 50%;
+    top: 20%;
+    left: 20%;
+    filter: blur(1px);
+}
+
+.marker::before {
+    content: 'SAALIM';
+    width: 60%;
+    height: 60%;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    justify-content: center;
+    display: flex;
+    font-weight: bold;
+    text-shadow:
+        -1px -1px 0px #c8d0e7,
+        1px 1px 0px #c8d0e7,
+        -1px 1px 0px #c8d0e7,
+        1px -1px 0px #c8d0e7,
+        /* 0px 1px 0px #c8d0e7, */
+        /* 0px -1px 0px #c8d0e7, */
+        1px 0px 0px #c8d0e7,
+        -1px 0px 0px #c8d0e7;
+    color: #fff;
+    letter-spacing: 3px;
+    font-family:cursive;
+}
+
+.marker__1,
+.marker__2,
+.marker__3,
+.marker__4 {
+    position: absolute;
+    border-radius: .1rem;
+    box-shadow: inset 1px 1px 1px #c8d0e7,
+        inset -1px -1px 1px #fff;
+}
+
+.marker__1,
+.marker__2 {
+    width: 4px;
+    height: 10px;
+    left: 140px;
+}
+
+.marker__3,
+.marker__4 {
+    width: 10px;
+    height: 4px;
+    top: 140px;
+}
+
+.marker__1 {
+    top: 2%;
+}
+
+.marker__2 {
+    top: 98%;
+    transform: translateY(-10px);
+}
+
+.marker__3 {
+    left: 2%;
+}
+
+.marker__4 {
+    left: 98%;
+    transform: translateX(-10px);
+}
+</style>
+
+</html>
