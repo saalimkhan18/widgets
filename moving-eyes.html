@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Eyes</title>
+    <link rel="stylesheet" href="./custom.css">
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="m-5 d-flex align-items-center justify-content-center">
+        <div class="smiley">
+            <div class="d-flex justify-content-center face rounded-circle border ">
+                <div class="eyes">
+                    <div class="eye-1">
+                        <div class="pupil"></div>
+                    </div>
+                    <div class="eye-2">
+                        <div class="pupil"></div>
+                    </div>
+                </div>
+
+                <div class="mouth"></div>
+                <div class="tongue"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="./bootstrap/bootstrap.min.js"></script>
+</body>
+
+</html>
+
+<style>
+    .smiley {
+        position: relative;
+    }
+
+    .face {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle at 50%, white 0, white 5%,#f1c40f 70%, #f1c40f);
+    }
+
+
+    .eyes>div {
+        border: 2px solid black;
+        width: 40px;
+        height: 50px;
+        position: absolute;
+        top: 100px;
+        border-radius: 50%;
+        background-color: white;
+    }
+
+    .eye-1 {
+        left: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .eye-2 {
+        right: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pupil {
+        width: 25px;
+        height: 30px;
+        background: radial-gradient(circle at 25% 20%, white, white 2%, black 70%, black) ;
+        border-radius: 50%;
+    }
+
+    .mouth {
+        position: relative;
+        top: 130px;
+        border-bottom: 8px solid black;
+        width: 130px;
+        height: 100px;
+        border-radius: 50%;
+        z-index: 1;
+    }
+
+    .tongue{
+        position: absolute;
+        top: 165px;
+        left: 110px;
+        border-bottom: 35px solid #e74c3c;
+        width: 75px;
+        height: 100px;
+        border-radius: 50%;
+        z-index: 0;
+    }
+</style>
+
+<script>
+    var pupil = document.querySelectorAll('.pupil');
+    const eye1 = document.querySelectorAll('.pupil')[0];
+    const eye2 = document.querySelectorAll('.pupil')[1];
+    window.addEventListener('mousemove', (evt) => {
+        const x = -(window.innerWidth / 2 - evt.pageX) / 80;
+        const y = -(window.innerHeight / 2 - evt.pageY) / 80;
+        eye1.style.transform = `translateY(${y}px) translateX(${x}px)`;
+        eye2.style.transform = `translateY(${y}px) translateX(${x}px)`;
+    });  
+</script>
