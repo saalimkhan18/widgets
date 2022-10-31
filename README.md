@@ -7,3 +7,9 @@ Analog style needle clock made in HTML, CSS (Custom and Bootstrap) and JS (Vanil
 
 # Moving Eyes on Mouse Movement
 Tracking of mouse movement to move eyes of the smiley made in HTML & CSS with JS 
+
+# CSS Animated Loader
+Animated loader component made in HTML and CSS
+
+# Hidden Search Bar
+Hidden search bar which reveals on click on maginfying glass and gets closed on clicking on cross - made with HTML, CSS & JS
